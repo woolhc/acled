@@ -1,0 +1,51 @@
+DELTA
+SVNENDREP
+id: 1-2.0.r2/17
+type: file
+count: 0
+text: 2 0 4 0 d41d8cd98f00b204e9800998ecf8427e da39a3ee5e6b4b0d3255bfef95601890afd80709 1-1/_3
+cpath: /tags/新建文本文档.txt
+copyroot: 0 /
+
+PLAIN
+K 22
+新建文本文档.txt
+V 16
+file 1-2.0.r2/17
+END
+ENDREP
+id: 2-1.0.r2/266
+type: dir
+pred: 2-1.0.r1/66
+count: 1
+text: 2 199 54 0 0429482b07a5f750440a10a978d0dcb7
+cpath: /tags
+copyroot: 0 /
+
+PLAIN
+K 8
+branches
+V 14
+dir 0-1.0.r1/0
+K 4
+tags
+V 16
+dir 2-1.0.r2/266
+K 5
+trunk
+V 16
+dir 3-1.0.r1/129
+END
+ENDREP
+id: 0.0.r2/511
+type: dir
+pred: 0.0.r1/306
+count: 2
+text: 2 398 100 0 9a8b445c844d1f78caecb5cde5317402
+cpath: /
+copyroot: 0 /
+
+_1.0.t1-1 add-file true false /tags/新建文本文档.txt
+
+
+511 637
