@@ -12,4 +12,5 @@ public interface AcledDao {
 	public Point findByYear(Integer year);
 	public List<Point> findByMonth(String month);
 	public List<Point> findBymonthAndCountry(String month,String country);
+	public List<Point> findByYearAndCountry(int year ,String country);
 }

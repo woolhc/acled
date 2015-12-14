@@ -269,4 +269,53 @@ public List<Point> findBymonthAndCountry(String month, String country) {
 	//System.out.println(points);
 	return points;
 }
+
+public List<Point> findByYearAndCountry(int year, String country) {
+	// TODO Auto-generated method stub
+	PreparedStatement psmt=null;
+	List<Point> points=new ArrayList<Point>();
+	String sql="select LOCATION,LATITUDE,LONGITUDE,EVENT_TYPE from feizhou where YEAR="+year+" and COUNTRY='"+country+"'";
+	//String sql="select LOCATION,LATITUDE,LONGITUDE,EVENT_TYPE from africa_data";
+	try {
+		psmt=conn.prepareStatement(sql);
+		ResultSet rs=psmt.executeQuery();
+		while(rs.next()){
+			String eventtype=rs.getString("EVENT_TYPE").replace(" ", "");
+			//System.out.println(eventtype.trim());
+			String color;
+			Map<String, Integer> map=new HashMap<String,Integer>();
+			String location=rs.getString("LOCATION");
+			if (eventtype=="Riots/Protests") {
+				color="red";
+			}else if(eventtype.equalsIgnoreCase("Battle-Nochangeofterritory")){
+				color="green";
+			}else if(eventtype.equalsIgnoreCase("Violenceagainstcivilians")){
+				color="yellow";
+			}else if(eventtype.equalsIgnoreCase("Non-violentactivitybyaconflictactor")){
+				color="orange";
+			}else if(eventtype.equalsIgnoreCase("Remoteviolence")){
+				color="black";
+			}else if(eventtype.equalsIgnoreCase("Battle-Governmentregainsterritory")){
+				color="pink";
+			}else{
+				color="red";
+			}
+        	//points.add(new Point(rs.getDouble("LONGITUDE"), rs.getDouble("LATITUDE"), location));
+        	points.add(new Point(rs.getDouble("LONGITUDE"),rs.getDouble("LATITUDE"), location, color,rs.getString("EVENT_TYPE")));
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}finally{
+		try {
+			psmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//System.out.println(points);
+	return points;
+}
 }

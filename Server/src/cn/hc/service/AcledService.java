@@ -4,9 +4,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.management.RuntimeErrorException;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -67,15 +70,36 @@ public class AcledService {
 		return map;
 		
 	}
+	/**
+	 * 根据国家的名称，和事件段查询出该段时间内武装冲突的总数
+	 * @param startYear开始日期
+	 * @param endYear结束日期
+	 * @param CountryName国家名称
+	 * @return
+	 */
+	public  List<Map<String, Integer>>  getCountByCountryNameAndYear(int startYear,int endYear,String CountryName){
+		List<Map<String, Integer>> list=new  ArrayList<Map<String,Integer>>();
+		if(startYear<endYear){
+			for(int i=startYear;i<endYear+1;i++){
+				Map<String, Integer> map=new LinkedHashMap();
+				int count=acledDao.findByYearAndCountry(i, CountryName).size();
+				map.put("year",i);
+				map.put("count", count);
+				list.add(map);
+			}
+		}
+		return list;
+	}
 	//测试方法
 	@Test
 	public void Test(){
 		//getPercentagesByCountryName("India");
 		//System.out.println(new JSONArray().fromObject(getPercentagesByCountryName("India")));
-		List<Percentage> percentages=getPercentagesByCountryName("India");
-		//System.out.println(getPercentagesByCountryName("India"));
-		System.out.println(getMonthmonCountBycountryName("India"));
-		System.out.println(new JSONArray().fromObject(getMonthmonCountBycountryName("India")));
+//		List<Percentage> percentages=getPercentagesByCountryName("India");
+//		//System.out.println(getPercentagesByCountryName("India"));
+//		System.out.println(getMonthmonCountBycountryName("India"));
+//		System.out.println(new JSONArray().fromObject(getMonthmonCountBycountryName("India")));
+		System.out.println(new JSONArray().fromObject(getCountByCountryNameAndYear(1997, 2012, "Somalia")).toString());
 		
 	}
 }

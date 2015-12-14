@@ -40,23 +40,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </script>
 <script type="text/javascript">
-		  
-		     function search() {
-		     var country=$("#country :selected").val();
-		     var countryname=$("#country :selected").html();
-		     var url="/Server/pieSearchServlet?country="+country;
-		     var datas=[];
+   		function search(){
+	   			var country=$("#country :selected").val();
+	   			var startyear=$("#startYear :selected").val();
+	   			var endyear=$("#endYear :selected").val();
+	   			var url="/Server/yearSearchServlet?country="+country+"&startYear="+startyear+"&endYear="+endyear;
+	   		   var datas=[];
+	   		   var title=country+startyear+"年到"+endyear+"年武装冲突数量统计"
 		     $.ajax({
                     type:"GET",
-                    url:url ,//提供数据的Servlet
+                    url:url,//提供数据的Servlet
                     success:function(data){
                   		var da=eval(data);
-                  		var das=[];
-                  		//alert(da.length);
                   		for(var i=0;i<da.length;i++){
                   			//datas.push()
                   		   // datas.push({y:da[i].per,indexLabe:da[i].actionType})
-                  		    datas.push({  y: da[i].per, legendText: da[i].actionType,  label: da[i].actionType })
+                  		    datas.push({  x:da[i].year, y: da[i].count});
                   		}
                   		//alert(datas[0].indexLabe);
                   		chart.render();
@@ -65,31 +64,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         alert(e);
                     }
                 });
+        	
 			var chart = new CanvasJS.Chart("chartContainer",
 	{
+		animationEnabled: true,
 		title:{
-			text: countryname+"2015年1-8月武装冲突类型占比饼状图"
-		},
-		exportFileName: "Pie Chart",
-		exportEnabled: true,
-                animationEnabled: true,
-		legend:{
-			verticalAlign: "bottom",
-			horizontalAlign: "center"
+			text: title
 		},
 		data: [
-		{       
-			type: "pie",
-			showInLegend: true,
-			toolTipContent: "{legendText}: <strong>{y}%</strong>",
-			indexLabel: "{label} {y}%",
+		{
+			type: "column", //change type to bar, line, area, pie, etc
 			dataPoints: datas
-	}
-	]
+		}
+		]
 	});
 
 	chart.render();
-}
+	   		}
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -124,8 +115,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li class="hvr-sweep-to-top"><a href="index.html">主页</a></li>
 							<li class="hvr-sweep-to-top"><a href="index.html">系统介绍</a></li>
 							<li class="hvr-sweep-to-top "><a href="about.html">国家对比查询</a></li>
-							<li class="hvr-sweep-to-top cap"><a href="pieSearch.html" >冲突类型占比查询</a></li>
-							<li class="hvr-sweep-to-top"><a href="yearSearch.html">按年查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="pieSearch.html" >冲突类型占比查询</a></li>
+							<li class="hvr-sweep-to-top cap"><a href="yearSearch.html">按年查询</a></li>
 							<li class="hvr-sweep-to-top"><a href="map.html">地区查询</a></li>
 							<li class="hvr-sweep-to-top"><a href="contact.html">Contact</a></li>
 						</ul>
@@ -145,49 +136,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //banner -->
 <!-- about -->
 	<div class="about" align="center">
-	<h2 class="type text-center">冲突类型占比查询</h2>
-	请选择要查询的国家
-	  <select  name="country" id="country" >
-		<option value="India" selected="selected">印度</option>
-		<option value="Pakistan">巴基斯坦</option>
-		<option value="Bangladesh">孟加拉国</option>
-		<option value="Nepal">尼泊尔</option>
-		<option value="Vietnam">越南</option>
-		<option value="Myanmar">缅甸</option>
-		<option value="Sri Lanka">斯里兰卡</option>
+	<h2 class="type text-center">非洲国家按年数据查询</h2>
+	 请选择查询的国家:
+     <select   name="country" id="country" >
+		<option value="Somalia" selected="selected">索马里</option>
+		<option value="Algeria">阿尔及利亚</option>
+		<option value="Burundi">布隆迪</option>
+		<option value="Guinea">几内亚</option>
+		<option value="Libya">利比亚</option>
+		<option value="Egypt">埃及</option>
+		<option value="Sierra Leone">塞拉利昂</option>
+	</select>
+	请选择查询的时间段:
+	 <select   name="startYear" id="startYear" >
+		<option value="1997" selected="selected">1997年</option>
+		<option value="1998">1998年</option>
+		<option value="1999">1999年</option>
+		<option value="2000">2000年</option>
+		<option value="2001">2001年</option>
+		<option value="2002">2002年</option>
+		<option value="2003">2003年</option>
+		<option value="2004">2004年</option>
+		<option value="2005">2005年</option>
+		<option value="2006">2006年</option>
+		<option value="2007">2007年</option>
+		<option value="2008">2008年</option>
+		<option value="2009">2009年</option>
+		<option value="2010">2010年</option>
+		<option value="2011">2011年</option>
+		<option value="2012">2012年</option>
+		<option value="2013">2013年</option>
+		<option value="2014">2014年</option>
+	</select>
+	到
+	<select   name="endYear" id="endYear" >
+		<option value="1997">1997年</option>
+		<option value="1998">1998年</option>
+		<option value="1999">1999年</option>
+		<option value="2000">2000年</option>
+		<option value="2001">2001年</option>
+		<option value="2002">2002年</option>
+		<option value="2003">2003年</option>
+		<option value="2004">2004年</option>
+		<option value="2005">2005年</option>
+		<option value="2006">2006年</option>
+		<option value="2007">2007年</option>
+		<option value="2008">2008年</option>
+		<option value="2009">2009年</option>
+		<option value="2010">2010年</option>
+		<option value="2011">2011年</option>
+		<option value="2012">2012年</option>
+		<option value="2013">2013年</option>
+		<option value="2014"  selected="selected">2014年</option>
 	</select>
 	<input type="button" onclick="search()" value="查询"/>
   <div id="chartContainer" style="height: 500px; width: 80%;"></div>
-	</div>
-	<div class="professional">
-		<div class="container">
-			<div class="professionals">
-				<h3>The Best Of Professionals</h3>
-					<div class="professionals-grids">
-						<div class="col-md-3 professionals-grid">
-							<img src="images/10.jpg" alt=" " />
-							<h4>Miss.Laura</h4>
-							<p>Dental Specialist</p>
-						</div>
-						<div class="col-md-3 professionals-grid">
-							<img src="images/11.jpg" alt=" " />
-							<h4>Mr.Adom Smith</h4>
-							<p>Dental Specialist</p>
-						</div>
-						<div class="col-md-3 professionals-grid">
-							<img src="images/12.jpg" alt=" " />
-							<h4>Miss.Willa</h4>
-							<p>Dental Specialist</p>
-						</div>
-						<div class="col-md-3 professionals-grid">
-							<img src="images/13.jpg" alt=" " />
-							<h4>Mr.Micheal</h4>
-							<p>Dental Specialist</p>
-						</div>
-						<div class="clearfix"> </div>
-					</div>
-			</div>
-		</div>
 	</div>
 <!-- testimonials -->
 	<div class="testimonials">
@@ -220,43 +223,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				    });
 				  </script>
 			<!--//End-slider-script -->
-			<div  id="top" class="callbacks_container wow fadeInUp" data-wow-delay="0.5s">
-				<ul class="rslides" id="slider3">
-					<li>
-						<div class="testimonials-grids">
-							<div class="testimonials-grid-left">
-								<img src="images/2.png" alt=" " />
-							</div>
-							<div class="testimonials-grid-right">
-								<p>Ms.Alor Ayyer<span> Tagline</span></p>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					</li>
-					<li>
-						<div class="testimonials-grids">
-							<div class="testimonials-grid-left">
-								<img src="images/3.png" alt=" " />
-							</div>
-							<div class="testimonials-grid-right">
-								<p>Mr.john williums<span> Tagline</span></p>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					</li>
-					<li>
-						<div class="testimonials-grids">
-							<div class="testimonials-grid-left">
-								<img src="images/4.png" alt=" " />
-							</div>
-							<div class="testimonials-grid-right">
-								<p>Ms.Dolly Brown<span> Tagline</span></p>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					</li>
-				</ul>
-			</div>
 		</div>
 	</div>
 <!-- //testimonials -->

@@ -39,57 +39,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="js/canvasjs.min.js">
 
 </script>
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=2.0&ak=ByWCdZrGIRyrmAxkUDTvqeKi">
+	
+</script>
 <script type="text/javascript">
 		  
-		     function search() {
-		     var country=$("#country :selected").val();
-		     var countryname=$("#country :selected").html();
-		     var url="/Server/pieSearchServlet?country="+country;
-		     var datas=[];
-		     $.ajax({
-                    type:"GET",
-                    url:url ,//提供数据的Servlet
+		    var map;
+		    function addPoint(map, jing, wei, message, color) {
+				var point = new BMap.Point(jing, wei);
+				var circle = new BMap.Circle(point, 30000);
+				circle.setFillColor(color);
+				map.addOverlay(circle);
+				var opts = {
+					width : 250, // 信息窗口宽度    
+					height : 100, // 信息窗口高度    
+					title : "冲突信息" // 信息窗口标题   
+				}
+		// var infoWindow = new BMap.InfoWindow(message, opts);  // 创建信息窗口对象    
+		//circle.addEventListener("click", function () {
+		//   map.openInfoWindow(infoWindow, point);
+		//});
+           	}
+           	 function search() {
+		        map = new BMap.Map("chartContainer");
+		     	var point = new BMap.Point(76.21000, 21.49000);
+		        map.centerAndZoom(point, 7);
+	   			var month=$("#mo :selected").val();
+	   			var url="/Server/monthSearchServlet?mon="+month;
+	   			   $.ajax({
+                    type:"POST",
+                    url:url,//提供数据的Servlet
                     success:function(data){
                   		var da=eval(data);
-                  		var das=[];
-                  		//alert(da.length);
                   		for(var i=0;i<da.length;i++){
                   			//datas.push()
                   		   // datas.push({y:da[i].per,indexLabe:da[i].actionType})
-                  		    datas.push({  y: da[i].per, legendText: da[i].actionType,  label: da[i].actionType })
+                  		  addPoint(map, da[i].jing, da[i].wei,
+							da[i].information, da[i].color);
                   		}
                   		//alert(datas[0].indexLabe);
-                  		chart.render();
                     },
                     error:function(e){
                         alert(e);
                     }
                 });
-			var chart = new CanvasJS.Chart("chartContainer",
-	{
-		title:{
-			text: countryname+"2015年1-8月武装冲突类型占比饼状图"
-		},
-		exportFileName: "Pie Chart",
-		exportEnabled: true,
-                animationEnabled: true,
-		legend:{
-			verticalAlign: "bottom",
-			horizontalAlign: "center"
-		},
-		data: [
-		{       
-			type: "pie",
-			showInLegend: true,
-			toolTipContent: "{legendText}: <strong>{y}%</strong>",
-			indexLabel: "{label} {y}%",
-			dataPoints: datas
-	}
-	]
-	});
-
-	chart.render();
-}
+		     }
+	
 </script>
 <!-- start-smoth-scrolling -->
 </head>
@@ -124,9 +120,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li class="hvr-sweep-to-top"><a href="index.html">主页</a></li>
 							<li class="hvr-sweep-to-top"><a href="index.html">系统介绍</a></li>
 							<li class="hvr-sweep-to-top "><a href="about.html">国家对比查询</a></li>
-							<li class="hvr-sweep-to-top cap"><a href="pieSearch.html" >冲突类型占比查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="pieSearch.html" >冲突类型占比查询</a></li>
 							<li class="hvr-sweep-to-top"><a href="yearSearch.html">按年查询</a></li>
-							<li class="hvr-sweep-to-top"><a href="map.html">地区查询</a></li>
+							<li class="hvr-sweep-to-top cap"><a href="map.html">地区查询</a></li>
 							<li class="hvr-sweep-to-top"><a href="contact.html">Contact</a></li>
 						</ul>
 				</div>
@@ -145,20 +141,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //banner -->
 <!-- about -->
 	<div class="about" align="center">
-	<h2 class="type text-center">冲突类型占比查询</h2>
-	请选择要查询的国家
-	  <select  name="country" id="country" >
-		<option value="India" selected="selected">印度</option>
-		<option value="Pakistan">巴基斯坦</option>
-		<option value="Bangladesh">孟加拉国</option>
-		<option value="Nepal">尼泊尔</option>
-		<option value="Vietnam">越南</option>
-		<option value="Myanmar">缅甸</option>
-		<option value="Sri Lanka">斯里兰卡</option>
+	<h2 class="type text-center">亚洲国家2015年数据查询展示</h2>
+	请选择要查询的月份:
+	<select name="month" id="mo">
+		<option value="1" selected="selected">一月</option>
+		<option value="2">二月</option>
+		<option value="3">三月</option>
+		<option value="4">四月</option>
+		<option value="5">五月</option>
+		<option value="6">六月</option>
+		<option value="7">七月</option>
 	</select>
 	<input type="button" onclick="search()" value="查询"/>
-  <div id="chartContainer" style="height: 500px; width: 80%;"></div>
+	<div id="chartContainer" style="height: 500px; width: 80%;"></div>
 	</div>
+	
 	<div class="professional">
 		<div class="container">
 			<div class="professionals">
