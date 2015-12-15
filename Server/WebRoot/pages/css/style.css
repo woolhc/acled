@@ -163,8 +163,7 @@ button.btn.btn-default {
   margin-top:0;
 }
 .banner{
-  background: url(../images/banner.jpg) no-repeat 0px 0px;
-  background-size: cover;
+  
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -345,7 +344,7 @@ button.btn.btn-default {
 }
 .rslides li {
   -webkit-backface-visibility: hidden;
-  position: absolute;
+  /*position: absolute;*/
   display:none;
   width: 100%;
   left: 0;
