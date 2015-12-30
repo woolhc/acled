@@ -1,0 +1,271 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>基于本体的武装冲突事件查询与分析系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!-- fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+<!-- //fonts -->
+<!-- js -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- //js -->
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Dental Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<script type="text/javascript" src="js/canvasjs.min.js">
+
+</script>
+<script type="text/javascript">
+   		function search(){
+	   			var country=$("#country :selected").val();
+	   			var startyear=$("#startYear :selected").val();
+	   			var endyear=$("#endYear :selected").val();
+	   			var url="/Server/yearSearchServlet?country="+country+"&startYear="+startyear+"&endYear="+endyear;
+	   		   var datas=[];
+	   		   var title=country+startyear+"年到"+endyear+"年武装冲突数量统计"
+		     $.ajax({
+                    type:"GET",
+                    url:url,//提供数据的Servlet
+                    success:function(data){
+                  		var da=eval(data);
+                  		for(var i=0;i<da.length;i++){
+                  			//datas.push()
+                  		   // datas.push({y:da[i].per,indexLabe:da[i].actionType})
+                  		    datas.push({  x:da[i].year, y: da[i].count});
+                  		}
+                  		//alert(datas[0].indexLabe);
+                  		chart.render();
+                    },
+                    error:function(e){
+                        alert(e);
+                    }
+                });
+        	
+			var chart = new CanvasJS.Chart("chartContainer",
+	{
+		animationEnabled: true,
+		title:{
+			text: title
+		},
+		data: [
+		{
+			type: "column", //change type to bar, line, area, pie, etc
+			dataPoints: datas
+		}
+		]
+	});
+
+	chart.render();
+	   		}
+</script>
+<!-- start-smoth-scrolling -->
+</head>
+	
+<body>
+<!-- header -->	
+	<div class="header">
+		<div class="container">
+			<div class="header-left">
+				<div class="logo">
+					<h1><a href="index.html">基于本体的武装冲突事件查询与分析系统</a></h1>
+				</div>
+			</div>
+			<div class="header-right">
+				<ul>
+					<li><a href="#"><i class="facebook"> </i></a></li>
+					<li><a href="#"><i class="p"> </i></a></li>
+					<li><a href="#"><i class="twitter"> </i></a></li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>	
+<!-- //header -->
+<!-- banner -->
+	<div class="banner1">
+		<div class="container">
+			<div class="banner-navigation">
+				<div class="banner-nav">
+					<span class="menu"><img src="images/menu.png" alt=" "/></span>
+						<ul class="nav1">
+							<li class="hvr-sweep-to-top"><a href="index.html">主页</a></li>
+							<li class="hvr-sweep-to-top"><a href="index.html">系统介绍</a></li>
+							<li class="hvr-sweep-to-top "><a href="about.html">国家对比查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="pieSearch.html" >冲突类型占比查询</a></li>
+							<li class="hvr-sweep-to-top cap"><a href="yearSearch.html">按年查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="map.html">地区查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="contact.html">Contact</a></li>
+						</ul>
+				</div>
+			</div>
+			<!-- script for menu -->
+					<script> 
+						$( "span.menu" ).click(function() {
+						$( "ul.nav1" ).slideToggle( 300, function() {
+						 // Animation complete.
+						});
+						});
+					</script>
+			<!-- //script for menu -->
+		</div>
+	</div>
+<!-- //banner -->
+<!-- about -->
+	<div class="about" align="center">
+	<h2 class="type text-center">非洲国家按年数据查询</h2>
+	 请选择查询的国家:
+     <select   name="country" id="country" >
+		<option value="Somalia" selected="selected">索马里</option>
+		<option value="Algeria">阿尔及利亚</option>
+		<option value="Burundi">布隆迪</option>
+		<option value="Guinea">几内亚</option>
+		<option value="Libya">利比亚</option>
+		<option value="Egypt">埃及</option>
+		<option value="Sierra Leone">塞拉利昂</option>
+	</select>
+	请选择查询的时间段:
+	 <select   name="startYear" id="startYear" >
+		<option value="1997" selected="selected">1997年</option>
+		<option value="1998">1998年</option>
+		<option value="1999">1999年</option>
+		<option value="2000">2000年</option>
+		<option value="2001">2001年</option>
+		<option value="2002">2002年</option>
+		<option value="2003">2003年</option>
+		<option value="2004">2004年</option>
+		<option value="2005">2005年</option>
+		<option value="2006">2006年</option>
+		<option value="2007">2007年</option>
+		<option value="2008">2008年</option>
+		<option value="2009">2009年</option>
+		<option value="2010">2010年</option>
+		<option value="2011">2011年</option>
+		<option value="2012">2012年</option>
+		<option value="2013">2013年</option>
+		<option value="2014">2014年</option>
+	</select>
+	到
+	<select   name="endYear" id="endYear" >
+		<option value="1997">1997年</option>
+		<option value="1998">1998年</option>
+		<option value="1999">1999年</option>
+		<option value="2000">2000年</option>
+		<option value="2001">2001年</option>
+		<option value="2002">2002年</option>
+		<option value="2003">2003年</option>
+		<option value="2004">2004年</option>
+		<option value="2005">2005年</option>
+		<option value="2006">2006年</option>
+		<option value="2007">2007年</option>
+		<option value="2008">2008年</option>
+		<option value="2009">2009年</option>
+		<option value="2010">2010年</option>
+		<option value="2011">2011年</option>
+		<option value="2012">2012年</option>
+		<option value="2013">2013年</option>
+		<option value="2014"  selected="selected">2014年</option>
+	</select>
+	<input type="button" onclick="search()" value="查询"/>
+  <div id="chartContainer" style="height: 500px; width: 80%;"></div>
+	</div>
+<!-- testimonials -->
+	<div class="testimonials">
+		<div class="container">
+			<h3>Testimonials</h3>
+			<p class="aut">Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
+				accusantium doloremque laudantium. repudiandae sint et molestiae non recusandae.
+				Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
+				voluptatibus maiores alias</p>
+<!-- Slider-starts-Here -->
+				<script src="js/responsiveslides.min.js"></script>
+				 <script>
+				    // You can also use "$(window).load(function() {"
+				    $(function () {
+				      // Slideshow 4
+				      $("#slider3").responsiveSlides({
+				        auto: true,
+				        pager: true,
+				        nav: false,
+				        speed: 500,
+				        namespace: "callbacks",
+				        before: function () {
+				          $('.events').append("<li>before event fired.</li>");
+				        },
+				        after: function () {
+				          $('.events').append("<li>after event fired.</li>");
+				        }
+				      });
+				
+				    });
+				  </script>
+			<!--//End-slider-script -->
+		</div>
+	</div>
+<!-- //testimonials -->
+<!-- //about -->
+<!-- footer -->
+	<div class="footer">
+				<div class="container">
+				<div class="footer-bottom-at">
+					<div class="col-md-6 footer-grid">
+						<h3>ACLED</h3>
+						<p>ACLED (Armed Conflict Location & Event Data Project) is designed for disaggregated conflict analysis and crisis mapping. This dataset codes the locations, dates and types of all reported conflict events in over 50 countries in the developing world. Data are available for public download from the data page.</p>
+					</div>
+					<div class="col-md-6 footer-grid-in">
+					<ul class="footer-nav">
+					  <li>友情链接</li>
+					  <li><a href="http://www.qdu.edu.cn">青岛大学</a>|</li>
+					  <li><a class="scroll" href="http://www.acleddata.com">ACLED</a>|</li>
+					  <li><a href="http://user.qzone.qq.com/707298083/infocenter?ptsig=ByHKJaZAGnXbav7VYmhKgy-EDJghngY9GSCP96N3108_">个人博客</a>|</li>
+					</ul>
+					<p class="footer-class"> © 2015 Huang Chen. All rights reserved | Design by hc </p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				</div>
+			</div>
+
+<!-- //footer -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+</body>
+</html>

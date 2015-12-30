@@ -1,0 +1,302 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>基于本体的武装冲突事件查询与分析系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<!-- fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+<!-- //fonts -->
+<!-- js -->
+<script src="js/jquery-1.11.1.min.js"></script>
+<!-- //js -->
+<!-- for-mobile-apps -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Dental Care Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- //for-mobile-apps -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<script type="text/javascript" src="js/canvasjs.min.js">
+
+</script>
+<script type="text/javascript"
+	src="http://api.map.baidu.com/api?v=2.0&ak=ByWCdZrGIRyrmAxkUDTvqeKi">
+	
+</script>
+<script type="text/javascript">
+		  
+		    var map;
+		    function addPoint(map, jing, wei, message, color) {
+				var point = new BMap.Point(jing, wei);
+				var circle = new BMap.Circle(point, 30000);
+				circle.setFillColor(color);
+				map.addOverlay(circle);
+				var opts = {
+					width : 250, // 信息窗口宽度    
+					height : 100, // 信息窗口高度    
+					title : "冲突信息" // 信息窗口标题   
+				}
+		// var infoWindow = new BMap.InfoWindow(message, opts);  // 创建信息窗口对象    
+		//circle.addEventListener("click", function () {
+		//   map.openInfoWindow(infoWindow, point);
+		//});
+           	}
+           	 function search() {
+		        map = new BMap.Map("chartContainer");
+		     	var point = new BMap.Point(76.21000, 21.49000);
+		        map.centerAndZoom(point, 7);
+	   			var month=$("#mo :selected").val();
+	   			var url="/Server/monthSearchServlet?mon="+month;
+	   			   $.ajax({
+                    type:"POST",
+                    url:url,//提供数据的Servlet
+                    success:function(data){
+                  		var da=eval(data);
+                  		for(var i=0;i<da.length;i++){
+                  			//datas.push()
+                  		   // datas.push({y:da[i].per,indexLabe:da[i].actionType})
+                  		  addPoint(map, da[i].jing, da[i].wei,
+							da[i].information, da[i].color);
+                  		}
+                  		//alert(datas[0].indexLabe);
+                    },
+                    error:function(e){
+                        alert(e);
+                    }
+                });
+		     }
+	
+</script>
+<!-- start-smoth-scrolling -->
+</head>
+	
+<body>
+<!-- header -->	
+	<div class="header">
+		<div class="container">
+			<div class="header-left">
+				<div class="logo">
+					<h1><a href="index.html">基于本体的武装冲突事件查询与分析系统</a></h1>
+				</div>
+			</div>
+			<div class="header-right">
+				<ul>
+					<li><a href="#"><i class="facebook"> </i></a></li>
+					<li><a href="#"><i class="p"> </i></a></li>
+					<li><a href="#"><i class="twitter"> </i></a></li>
+				</ul>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>	
+<!-- //header -->
+<!-- banner -->
+	<div class="banner1">
+		<div class="container">
+			<div class="banner-navigation">
+				<div class="banner-nav">
+					<span class="menu"><img src="images/menu.png" alt=" "/></span>
+						<ul class="nav1">
+							<li class="hvr-sweep-to-top"><a href="index.html">主页</a></li>
+							<li class="hvr-sweep-to-top"><a href="index.html">系统介绍</a></li>
+							<li class="hvr-sweep-to-top "><a href="about.html">国家对比查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="pieSearch.html" >冲突类型占比查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="yearSearch.html">按年查询</a></li>
+							<li class="hvr-sweep-to-top cap"><a href="map.html">地区查询</a></li>
+							<li class="hvr-sweep-to-top"><a href="contact.html">Contact</a></li>
+						</ul>
+				</div>
+			</div>
+			<!-- script for menu -->
+					<script> 
+						$( "span.menu" ).click(function() {
+						$( "ul.nav1" ).slideToggle( 300, function() {
+						 // Animation complete.
+						});
+						});
+					</script>
+			<!-- //script for menu -->
+		</div>
+	</div>
+<!-- //banner -->
+<!-- about -->
+	<div class="about" align="center">
+	<h2 class="type text-center">亚洲国家2015年数据查询展示</h2>
+	请选择要查询的月份:
+	<select name="month" id="mo">
+		<option value="1" selected="selected">一月</option>
+		<option value="2">二月</option>
+		<option value="3">三月</option>
+		<option value="4">四月</option>
+		<option value="5">五月</option>
+		<option value="6">六月</option>
+		<option value="7">七月</option>
+	</select>
+	<input type="button" onclick="search()" value="查询"/>
+	<div id="chartContainer" style="height: 500px; width: 80%;"></div>
+	</div>
+	
+	<div class="professional">
+		<div class="container">
+			<div class="professionals">
+				<h3>The Best Of Professionals</h3>
+					<div class="professionals-grids">
+						<div class="col-md-3 professionals-grid">
+							<img src="images/10.jpg" alt=" " />
+							<h4>Miss.Laura</h4>
+							<p>Dental Specialist</p>
+						</div>
+						<div class="col-md-3 professionals-grid">
+							<img src="images/11.jpg" alt=" " />
+							<h4>Mr.Adom Smith</h4>
+							<p>Dental Specialist</p>
+						</div>
+						<div class="col-md-3 professionals-grid">
+							<img src="images/12.jpg" alt=" " />
+							<h4>Miss.Willa</h4>
+							<p>Dental Specialist</p>
+						</div>
+						<div class="col-md-3 professionals-grid">
+							<img src="images/13.jpg" alt=" " />
+							<h4>Mr.Micheal</h4>
+							<p>Dental Specialist</p>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+			</div>
+		</div>
+	</div>
+<!-- testimonials -->
+	<div class="testimonials">
+		<div class="container">
+			<h3>Testimonials</h3>
+			<p class="aut">Sed ut perspiciatis unde omnis iste natus error sit voluptatem 
+				accusantium doloremque laudantium. repudiandae sint et molestiae non recusandae.
+				Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
+				voluptatibus maiores alias</p>
+<!-- Slider-starts-Here -->
+				<script src="js/responsiveslides.min.js"></script>
+				 <script>
+				    // You can also use "$(window).load(function() {"
+				    $(function () {
+				      // Slideshow 4
+				      $("#slider3").responsiveSlides({
+				        auto: true,
+				        pager: true,
+				        nav: false,
+				        speed: 500,
+				        namespace: "callbacks",
+				        before: function () {
+				          $('.events').append("<li>before event fired.</li>");
+				        },
+				        after: function () {
+				          $('.events').append("<li>after event fired.</li>");
+				        }
+				      });
+				
+				    });
+				  </script>
+			<!--//End-slider-script -->
+			<div  id="top" class="callbacks_container wow fadeInUp" data-wow-delay="0.5s">
+				<ul class="rslides" id="slider3">
+					<li>
+						<div class="testimonials-grids">
+							<div class="testimonials-grid-left">
+								<img src="images/2.png" alt=" " />
+							</div>
+							<div class="testimonials-grid-right">
+								<p>Ms.Alor Ayyer<span> Tagline</span></p>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grids">
+							<div class="testimonials-grid-left">
+								<img src="images/3.png" alt=" " />
+							</div>
+							<div class="testimonials-grid-right">
+								<p>Mr.john williums<span> Tagline</span></p>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+					<li>
+						<div class="testimonials-grids">
+							<div class="testimonials-grid-left">
+								<img src="images/4.png" alt=" " />
+							</div>
+							<div class="testimonials-grid-right">
+								<p>Ms.Dolly Brown<span> Tagline</span></p>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- //testimonials -->
+<!-- //about -->
+<!-- footer -->
+	<div class="footer">
+				<div class="container">
+				<div class="footer-bottom-at">
+					<div class="col-md-6 footer-grid">
+						<h3>ACLED</h3>
+						<p>ACLED (Armed Conflict Location & Event Data Project) is designed for disaggregated conflict analysis and crisis mapping. This dataset codes the locations, dates and types of all reported conflict events in over 50 countries in the developing world. Data are available for public download from the data page.</p>
+					</div>
+					<div class="col-md-6 footer-grid-in">
+					<ul class="footer-nav">
+					  <li>友情链接</li>
+					  <li><a href="http://www.qdu.edu.cn">青岛大学</a>|</li>
+					  <li><a class="scroll" href="http://www.acleddata.com">ACLED</a>|</li>
+					  <li><a href="http://user.qzone.qq.com/707298083/infocenter?ptsig=ByHKJaZAGnXbav7VYmhKgy-EDJghngY9GSCP96N3108_">个人博客</a>|</li>
+					</ul>
+					<p class="footer-class"> © 2015 Huang Chen. All rights reserved | Design by hc </p>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				</div>
+			</div>
+
+<!-- //footer -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+</body>
+</html>
